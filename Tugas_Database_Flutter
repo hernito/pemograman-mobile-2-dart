@@ -1,0 +1,94 @@
+import 'package:flutter/material.dart';
+void main() => runApp(App());
+
+class App extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter penyimpanan data',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Hernito_6SIA5'),
+        ),
+        body: karyawan(),
+      ),
+    );
+  }
+}
+
+class DataKaryawan{
+  
+  String kodekaryawan;
+  String namakaryawan;
+  String jabatan;
+  String gajipokok;
+  
+  
+  Datakaryawan({ this.kodekaryawan, this.namakaryawan, this.jabatan, this.gajipokok});
+  
+}
+
+// class karyawan
+class karyawan extends StatefulWidget {
+  _MyappState createState() => _MyappState();
+}
+
+class _MyappState extends State<karyawan> {
+  //deklarasi variabel
+  final txtkodekaryawan = TextEditingController();
+  final txtnamakaryawan = TextEditingController();
+  final txtjabatan = TextEditingController();
+  final txtgajipokok = TextEditingController();
+
+  List<Widget> data = [];
+
+  onTambah() {
+    setState(() {
+      data.add(ListTile(
+        leading: Text(txtkodekaryawan.text),
+        title: Text(txtnamakaryawan.text),
+        subtitle: Text(txtjabatan.text),
+        trailing: Text(txtgajipokok.text),
+      ));
+      txtkodekaryawan.clear();
+      txtnamakaryawan.clear();
+      txtjabatan.clear();
+      txtgajipokok.clear();
+    });
+  }
+
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        new Container(
+          padding: EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+           
+              TextField(
+                controller: txtkodekaryawan,
+                decoration: InputDecoration(hintText: 'Kode karyawan'),
+              ),
+              TextField(
+                controller: txtnamakaryawan,
+                decoration: InputDecoration(hintText: 'nama karyawan'),
+              ),
+              TextField(
+                controller: txtjabatan,
+                decoration: InputDecoration(hintText: 'jabatan'),
+              ),
+               TextField(
+                controller: txtgajipokok,
+                decoration: InputDecoration(hintText: 'gajipokok'),
+              ),
+              Divider(height: 5.0),
+              ElevatedButton(child: Text("Tambah"), onPressed: onTambah),
+            ],
+          ),
+        ),
+        new Column(
+          children: data,
+        )
+      ],
+    );
+  }
